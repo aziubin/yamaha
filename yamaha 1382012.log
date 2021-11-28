@@ -1,0 +1,139 @@
+
+login as: pi
+pi@192.168.1.89's password:
+Linux yamaha 5.10.63-v7+ #1459 SMP Wed Oct 6 16:41:10 BST 2021 armv7l
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sun Nov 28 17:52:51 2021 from 192.168.1.66
+pi@yamaha:~ $ sudo dphys-swapfile uninstall
+pi@yamaha:~ $ sudo dphys-swapfile swapoff
+pi@yamaha:~ $ sudo update-rc.d dphys-swapfile remove
+pi@yamaha:~ $ sudo apt purge dphys-swapfile
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  dc python-colorzero
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED:
+  dphys-swapfile*
+0 upgraded, 0 newly installed, 1 to remove and 0 not upgraded.
+After this operation, 67.6 kB disk space will be freed.
+Do you want to continue? [Y/n] y
+(Reading database ... 40568 files and directories currently installed.)
+Removing dphys-swapfile (20100506-5+rpt2) ...
+Processing triggers for man-db (2.8.5-2) ...
+(Reading database ... 40553 files and directories currently installed.)
+Purging configuration files for dphys-swapfile (20100506-5+rpt2) ...
+Processing triggers for systemd (241-7~deb10u8+rpi1) ...
+pi@yamaha:~ $ free
+              total        used        free      shared  buff/cache   available
+Mem:         438252       39456      239872        3084      158924      344052
+Swap:             0           0           0
+pi@yamaha:~ $ df
+Filesystem     1K-blocks    Used Available Use% Mounted on
+/dev/root       59522812 1382012  55689080   3% /
+devtmpfs          185844       0    185844   0% /dev
+tmpfs             219124       0    219124   0% /dev/shm
+tmpfs             219124    3084    216040   2% /run
+tmpfs               5120       0      5120   0% /run/lock
+tmpfs             219124       0    219124   0% /sys/fs/cgroup
+/dev/mmcblk0p1    258095   49241    208854  20% /boot
+tmpfs              43824       0     43824   0% /run/user/1000
+pi@yamaha:~ $ top
+top - 17:54:46 up 1 min,  1 user,  load average: 0.57, 0.26, 0.10
+Tasks: 118 total,   1 running, 117 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  6.3 sy,  0.0 ni, 93.7 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :    428.0 total,    234.0 free,     38.5 used,    155.4 buff/cache
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.    336.0 avail Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+  689 pi        20   0   10188   2776   2416 R  11.1   0.6   0:00.06 top
+    1 root      20   0   34660   8092   6348 S   0.0   1.8   0:09.69 systemd
+    2 root      20   0       0      0      0 S   0.0   0.0   0:00.01 kthreadd
+    3 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_gp
+    4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_par_gp
+    5 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/0+
+    6 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/0+
+    7 root      20   0       0      0      0 I   0.0   0.0   0:00.01 kworker/u+
+    8 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 mm_percpu+
+    9 root      20   0       0      0      0 S   0.0   0.0   0:00.00 rcu_tasks+
+   10 root      20   0       0      0      0 S   0.0   0.0   0:00.00 rcu_tasks+
+   11 root      20   0       0      0      0 S   0.0   0.0   0:00.07 ksoftirqd+
+   12 root      20   0       0      0      0 I   0.0   0.0   0:00.07 rcu_sched
+   13 root      rt   0       0      0      0 S   0.0   0.0   0:00.02 migration+
+   14 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/0
+   15 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/1
+   16 root      rt   0       0      0      0 S   0.0   0.0   0:00.02 migration+
+pi@yamaha:~ $ ps -efc | grep mosquitto
+mosquit+   472     1 TS   19 17:53 ?        00:00:00 /usr/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
+pi         691   500 TS   19 17:55 pts/0    00:00:00 grep --color=auto mosquitto
+pi@yamaha:~ $ top
+top - 17:55:14 up 2 min,  1 user,  load average: 0.38, 0.24, 0.10
+Tasks: 118 total,   1 running, 117 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.1 us,  0.6 sy,  0.0 ni, 99.3 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :    428.0 total,    234.1 free,     38.2 used,    155.7 buff/cache
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.    336.3 avail Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+    7 root      20   0       0      0      0 I   2.0   0.0   0:00.18 kworker/u+
+  692 pi        20   0   10188   2832   2472 R   0.7   0.6   0:00.07 top
+   39 root      20   0       0      0      0 S   0.3   0.0   0:00.01 kcompactd0
+   61 root       0 -20       0      0      0 I   0.3   0.0   0:00.10 kworker/1+
+    1 root      20   0   34660   8092   6348 S   0.0   1.8   0:09.69 systemd
+    2 root      20   0       0      0      0 S   0.0   0.0   0:00.01 kthreadd
+    3 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_gp
+    4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_par_gp
+    5 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/0+
+    6 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/0+
+    8 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 mm_percpu+
+    9 root      20   0       0      0      0 S   0.0   0.0   0:00.00 rcu_tasks+
+   10 root      20   0       0      0      0 S   0.0   0.0   0:00.00 rcu_tasks+
+   11 root      20   0       0      0      0 S   0.0   0.0   0:00.07 ksoftirqd+
+   12 root      20   0       0      0      0 I   0.0   0.0   0:00.07 rcu_sched
+   13 root      rt   0       0      0      0 S   0.0   0.0   0:00.02 migration+
+   14 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/0
+top - 18:04:19 up 11 min,  1 user,  load average: 0.00, 0.03, 0.04
+Tasks: 104 total,   1 running, 103 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.2 us,  0.0 sy,  0.0 ni, 99.8 id,  0.0 wa,  0.0 hi,  0.1 si,  0.0 st
+MiB Mem :    428.0 total,    234.2 free,     38.0 used,    155.8 buff/cache
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.    336.4 avail Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+    1 root      20   0   34660   8092   6348 S   0.0   1.8   0:09.69 systemd
+  485 pi        20   0   14564   6596   5752 S   0.0   1.5   0:00.16 systemd
+  482 root      20   0   12204   6224   5436 S   0.0   1.4   0:00.26 sshd
+  124 root      20   0   15748   6100   5292 S   0.0   1.4   0:00.53 systemd-j+
+  304 root      20   0   13008   5708   5084 S   0.0   1.3   0:00.38 systemd-l+
+  258 systemd+  20   0   22380   5448   4800 S   0.0   1.2   0:00.40 systemd-t+
+  473 root      20   0   10692   5360   4808 S   0.0   1.2   0:00.03 sshd
+  472 mosquit+  20   0    8648   4512   4040 S   0.3   1.0   0:00.29 mosquitto
+  148 root      20   0   17972   3832   3020 S   0.0   0.9   0:00.77 systemd-u+
+  312 root      20   0   10708   3760   3388 S   0.0   0.9   0:00.04 wpa_suppl+
+  500 pi        20   0    8360   3584   2780 S   0.0   0.8   0:00.27 bash
+  499 pi        20   0   12204   3520   2732 S   0.0   0.8   0:00.19 sshd
+  384 root      20   0   10964   3440   2848 S   0.0   0.8   0:00.03 wpa_suppl+
+  414 root      20   0    9536   3300   3016 S   0.0   0.8   0:00.06 bluetoothd
+  298 message+  20   0    6548   3004   2728 S   0.0   0.7   0:01.01 dbus-daem+
+  692 pi        20   0   10188   2832   2472 R   0.7   0.6   0:03.92 top
+  324 root      20   0   25512   2800   2488 S   0.0   0.6   0:00.10 rsyslogd
+pi@yamaha:~ $ free
+              total        used        free      shared  buff/cache   available
+Mem:         438252       38372      240388        3084      159492      345100
+Swap:             0           0           0
+pi@yamaha:~ $ df
+Filesystem     1K-blocks    Used Available Use% Mounted on
+/dev/root       59522812 1382012  55689080   3% /
+devtmpfs          185844       0    185844   0% /dev
+tmpfs             219124       0    219124   0% /dev/shm
+tmpfs             219124    3084    216040   2% /run
+tmpfs               5120       0      5120   0% /run/lock
+tmpfs             219124       0    219124   0% /sys/fs/cgroup
+/dev/mmcblk0p1    258095   49241    208854  20% /boot
+tmpfs              43824       0     43824   0% /run/user/1000
+pi@yamaha:~ $
